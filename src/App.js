@@ -19,7 +19,7 @@ function App() {
           </div>
 
           <div className="flex-grow flex flex-row overflow-auto">
-            <div className="bg-blue-900 text-white w-1/12">
+            <div className="bg-blue-900 text-white w-30">
               <Sidebar />
             </div>
 
