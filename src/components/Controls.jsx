@@ -66,7 +66,8 @@ const Controls = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-row px-10 items-center gap-6">
+      <h3 className="font-extrabold">{songState.song.title}</h3>
       <audio ref={audioRef} />
       <div className="w-full bg-slate-900 h-2">
         <div
@@ -74,20 +75,22 @@ const Controls = () => {
           style={{ width: `${(progress / duration) * 100}%` }}
         ></div>
       </div>
-      <div id="buttons" className="flex gap-4 py-3">
-        <SkipPrevIcon className="fill-white hover:fill-gray-500" />
-        {songState.isPlaying ? (
-          <CircleStopIcon
-            onClick={playingButton}
-            className="fill-white hover:fill-gray-500"
-          />
-        ) : (
-          <CirclePlayIcon
-            onClick={playingButton}
-            className="fill-white hover:fill-gray-500"
-          />
-        )}
-        <SkipNextIcon className="fill-white hover:fill-gray-500" />
+      <div className="flex float-left justify-between items-center">
+        <div id="buttons" className="flex gap-4 py-3">
+          <SkipPrevIcon className="fill-white hover:fill-gray-500" />
+          {songState.isPlaying ? (
+            <CircleStopIcon
+              onClick={playingButton}
+              className="fill-white hover:fill-gray-500"
+            />
+          ) : (
+            <CirclePlayIcon
+              onClick={playingButton}
+              className="fill-white hover:fill-gray-500"
+            />
+          )}
+          <SkipNextIcon className="fill-white hover:fill-gray-500" />
+        </div>
       </div>
     </div>
   );
