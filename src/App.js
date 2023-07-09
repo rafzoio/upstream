@@ -1,32 +1,38 @@
+import React from "react";
+import { Provider } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Controls from "./components/Controls";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
+import store from "./redux/store";
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <div className="flex h-screen bg-gray-200">
-          <div className="w-full h-auto bg-gray-900 text-white fixed top-0">
+    <div className="flex flex-col min-h-screen">
+      <Provider store={store}>
+        <Router>
+          <div className="w-full bg-slate-800 text-white">
             <Header />
           </div>
-          <div className="w-full bg-gray-900 text-white fixed bottom-0">
+
+          <div className="flex-grow flex flex-row overflow-auto">
+            <div className="bg-blue-900 text-white w-1/6">
+              <Sidebar />
+            </div>
+
+            <div className="p-6 overflow-auto">
+              <Routes>
+                <Route path="/" element={<Home />} />
+              </Routes>
+            </div>
+          </div>
+          <div className="w-full bg-slate-800 text-white">
             <Controls />
           </div>
-          <div className="w-64 bg-gray-800 text-white p-5">
-            <Sidebar />
-          </div>
-
-          <div className="flex-1 p-10">
-            <Routes>
-              <Route path="/" element={<Home />} />
-            </Routes>
-          </div>
-        </div>
-      </Router>
+        </Router>
+      </Provider>
     </div>
   );
 }
