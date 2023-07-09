@@ -6,11 +6,12 @@ import Controls from "./components/Controls";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
+import Library from "./pages/Library";
 import store from "./redux/store";
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen font-karla">
       <Provider store={store}>
         <Router>
           <div className="w-full bg-slate-800 text-white">
@@ -18,13 +19,14 @@ function App() {
           </div>
 
           <div className="flex-grow flex flex-row overflow-auto">
-            <div className="bg-blue-900 text-white w-1/6">
+            <div className="bg-blue-900 text-white w-1/12">
               <Sidebar />
             </div>
 
             <div className="p-6 overflow-auto">
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/library" element={<Library />} />
               </Routes>
             </div>
           </div>
