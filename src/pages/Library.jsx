@@ -32,6 +32,7 @@ const songs = [
 const Library = () => {
   return (
     <div>
+      <h1 className="text-5xl font-karla pb-3 text-slate-700">Library</h1>
       <List data={songs} />
     </div>
   );

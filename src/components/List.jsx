@@ -15,12 +15,9 @@ const List = ({ data }) => {
   return (
     <div>
       <table className="w-fit text-left">
-        <thead>
+        <thead className="text-bold text-xl ">
           <tr>
-            <th>Title</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th>Year</th>
+            <th className="pl-2">Title</th>
           </tr>
         </thead>
         <tbody>
@@ -32,9 +29,6 @@ const List = ({ data }) => {
                 </button>
                 {song.title}
               </td>
-              <td className="">Artist</td>
-              <td className="">Album</td>
-              <td className="">2023</td>
             </tr>
           ))}
         </tbody>

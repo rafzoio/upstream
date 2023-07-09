@@ -21,21 +21,17 @@ const Controls = () => {
         audio.pause();
       }
 
-      // Event listener for loaded metadata
       const onLoadedMetadata = () => {
         setDuration(Math.round(audio.duration));
       };
 
-      // Event listener for time update
       const onTimeUpdate = () => {
         setProgress(Math.round(audio.currentTime));
       };
 
-      // Add event listeners
       audio.addEventListener("loadedmetadata", onLoadedMetadata);
       audio.addEventListener("timeupdate", onTimeUpdate);
 
-      // Remove event listeners on cleanup
       return () => {
         audio.removeEventListener("loadedmetadata", onLoadedMetadata);
         audio.removeEventListener("timeupdate", onTimeUpdate);
@@ -74,6 +70,10 @@ const Controls = () => {
           className="h-full bg-slate-700"
           style={{ width: `${(progress / duration) * 100}%` }}
         ></div>
+      </div>
+      <div className="flex flex-row items-center gap-2 w-10 justify-stretch">
+        <p>{progress}</p>
+        <p>{duration}</p>
       </div>
       <div className="flex float-left justify-between items-center">
         <div id="buttons" className="flex gap-4 py-3">
