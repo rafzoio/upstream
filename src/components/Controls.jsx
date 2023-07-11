@@ -1,3 +1,4 @@
+import axios from "axios";
 import { React, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as CirclePlayIcon } from "../resources/icons/circlePlay.svg";
@@ -41,18 +42,10 @@ const Controls = () => {
 
   useEffect(() => {
     if (audioRef.current) {
-      if (songState.isPlaying) {
-        audioRef.current.play();
-      } else {
-        audioRef.current.pause();
-      }
-    }
-  }, [songState.isPlaying]);
-
-  useEffect(() => {
-    if (audioRef.current) {
       audioRef.current.src = songState.song.src;
-      audioRef.current.play();
+      audioRef.current.play().catch((error) => {
+        console.log("Music failed to play");
+      });
     }
   }, [songState.song.src]);
 
@@ -71,9 +64,15 @@ const Controls = () => {
           style={{ width: `${(progress / duration) * 100}%` }}
         ></div>
       </div>
-      <div className="flex flex-row items-center gap-2 w-10 justify-stretch">
-        <p>{progress}</p>
-        <p>{duration}</p>
+      <div className="flex flex-row items-center gap-2 w-16 justify-stretch">
+        <p>
+          {Math.floor(progress / 60)}:
+          {(progress % 60).toString().padStart(2, "0")}
+        </p>
+        <p>
+          {Math.floor(duration / 60)}:
+          {(duration % 60).toString().padStart(2, "0")}
+        </p>
       </div>
       <div className="flex float-left justify-between items-center">
         <div id="buttons" className="flex gap-4 py-3">
