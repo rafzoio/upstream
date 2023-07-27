@@ -10,6 +10,9 @@ const List = ({ data }) => {
       type: "UPDATE_SONG",
       payload: song,
     });
+    dispatch({
+      type: "PLAY",
+    });
   };
 
   return (
