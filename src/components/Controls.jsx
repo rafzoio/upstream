@@ -18,7 +18,7 @@ const Controls = () => {
 
   const updateSongSources = async () => {
     try {
-      const response = await axios.get(
+      await axios.get(
         "https://utt4ontk9h.execute-api.eu-west-2.amazonaws.com/default/UpdateSources"
       );
     } catch (error) {
