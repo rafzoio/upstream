@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
-  return (
-    <div>
-      <h1 className="text-5xl font-karla pb-3 text-slate-700">
-        Welcome to Upstream
-      </h1>
-    </div>
-  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: "UPDATE_ACTIVE_LINK",
+      payload: "Home",
+    });
+  }, [dispatch]);
+
+  return <div></div>;
 };
 
 export default Home;

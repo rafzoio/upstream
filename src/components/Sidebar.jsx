@@ -1,12 +1,9 @@
-import { React, useState } from "react";
+import { React } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-  const [activeLink, setActiveLink] = useState("");
-
-  const handleNavLinkClick = (event) => {
-    setActiveLink(event.target.innerText);
-  };
+  const activeLink = useSelector((state) => state.activeLink);
 
   return (
     <div>
@@ -14,14 +11,12 @@ const Sidebar = () => {
         <Link
           to="/"
           className={activeLink === "Home" ? " text-white" : "text-gray-400"}
-          onClick={handleNavLinkClick}
         >
           <h2>Home</h2>
         </Link>
         <Link
           to="/library"
           className={activeLink === "Library" ? " text-white" : "text-gray-400"}
-          onClick={handleNavLinkClick}
         >
           <h2>Library</h2>
         </Link>
