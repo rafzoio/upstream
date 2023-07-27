@@ -26,6 +26,13 @@ const Library = () => {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch({
+      type: "UPDATE_PLAYLIST",
+      payload: songs,
+    });
+  }, [dispatch, songs]);
+
   return (
     <div>
       <List data={songs} />

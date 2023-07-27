@@ -16,6 +16,39 @@ const songReducer = (state = initialSongState, action) => {
   }
 };
 
+const initialPlaylistState = {
+  playlist: [],
+  playlistLength: 1,
+  currentIndex: 0,
+};
+
+const playlistReducer = (state = initialPlaylistState, action) => {
+  switch (action.type) {
+    case "UPDATE_PLAYLIST":
+      return {
+        ...state,
+        playlist: action.payload,
+        playlistLength: action.payload.length,
+      };
+    case "NEXT_SONG":
+      return {
+        ...state,
+        currentIndex: (state.currentIndex + 1) % state.playlistLength,
+      };
+    case "PREV_SONG":
+      let prevIndex = state.currentIndex - 1;
+      if (prevIndex < 0) {
+        prevIndex = state.playlistLength - 1;
+      }
+      return {
+        ...state,
+        currentIndex: prevIndex,
+      };
+    default:
+      return state;
+  }
+};
+
 const initialIsPlayingState = false;
 
 const isPlayingReducer = (state = initialIsPlayingState, action) => {
@@ -45,6 +78,7 @@ const store = configureStore({
     song: songReducer,
     isPlaying: isPlayingReducer,
     activeLink: activeLinkReducer,
+    playlist: playlistReducer,
   },
 });
 

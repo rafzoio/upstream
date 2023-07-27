@@ -9,7 +9,8 @@ import { ReactComponent as SkipPrevIcon } from "../resources/icons/skip_prev.svg
 const Controls = () => {
   const dispatch = useDispatch();
   const songState = useSelector((state) => state.song);
-  const isPlaying = useSelector((state) => state.isPlaying);
+  const isPlayingState = useSelector((state) => state.isPlaying);
+  const playlistState = useSelector((state) => state.playlist);
   const audioRef = useRef();
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -37,7 +38,7 @@ const Controls = () => {
 
   useEffect(() => {
     if (audio) {
-      if (isPlaying) {
+      if (isPlayingState) {
         audio.play();
       } else {
         audio.pause();
@@ -59,10 +60,36 @@ const Controls = () => {
         audio.removeEventListener("timeupdate", onTimeUpdate);
       };
     }
-  }, [isPlaying, songState, audio]);
+  }, [isPlayingState, songState, audio]);
 
   const playingButton = () => {
     dispatch({ type: "PLAY_PAUSE" });
+  };
+
+  const nextButton = () => {
+    const nextSongIndex =
+      (playlistState.currentIndex + 1) % playlistState.playlistLength;
+    dispatch({
+      type: "UPDATE_SONG",
+      payload: playlistState.playlist[nextSongIndex],
+    });
+    dispatch({
+      type: "NEXT_SONG",
+    });
+  };
+
+  const prevButton = () => {
+    let prevSongIndex = playlistState.currentIndex - 1;
+    if (prevSongIndex < 0) {
+      prevSongIndex = playlistState.playlistLength - 1; // Wrap to the end of the array
+    }
+    dispatch({
+      type: "UPDATE_SONG",
+      payload: playlistState.playlist[prevSongIndex],
+    });
+    dispatch({
+      type: "PREV_SONG",
+    });
   };
 
   return (
@@ -87,8 +114,11 @@ const Controls = () => {
       </div>
       <div className="flex float-left justify-between items-center">
         <div id="buttons" className="flex gap-4 py-3">
-          <SkipPrevIcon className="fill-white hover:fill-gray-500" />
-          {isPlaying ? (
+          <SkipPrevIcon
+            onClick={prevButton}
+            className="fill-white hover:fill-gray-500"
+          />
+          {isPlayingState ? (
             <CircleStopIcon
               onClick={playingButton}
               className="fill-white hover:fill-gray-500"
@@ -99,7 +129,10 @@ const Controls = () => {
               className="fill-white hover:fill-gray-500"
             />
           )}
-          <SkipNextIcon className="fill-white hover:fill-gray-500" />
+          <SkipNextIcon
+            onClick={nextButton}
+            className="fill-white hover:fill-gray-500"
+          />
         </div>
       </div>
     </div>
