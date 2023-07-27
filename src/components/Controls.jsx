@@ -1,5 +1,5 @@
 import axios from "axios";
-import { React, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as CirclePlayIcon } from "../resources/icons/circlePlay.svg";
 import { ReactComponent as CircleStopIcon } from "../resources/icons/circleStop.svg";
@@ -9,14 +9,35 @@ import { ReactComponent as SkipPrevIcon } from "../resources/icons/skip_prev.svg
 const Controls = () => {
   const dispatch = useDispatch();
   const songState = useSelector((state) => state.song);
+  const isPlaying = useSelector((state) => state.isPlaying);
   const audioRef = useRef();
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const audio = audioRef.current;
+
+  const updateSongSources = async () => {
+    try {
+      const response = await axios.get(
+        "https://utt4ontk9h.execute-api.eu-west-2.amazonaws.com/default/UpdateSources"
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const audio = audioRef.current;
+    updateSongSources();
+  }, []);
+
+  useEffect(() => {
     if (audio) {
-      if (songState.isPlaying) {
+      audio.src = songState.url;
+    }
+  }, [songState, audio]);
+
+  useEffect(() => {
+    if (audio) {
+      if (isPlaying) {
         audio.play();
       } else {
         audio.pause();
@@ -38,26 +59,16 @@ const Controls = () => {
         audio.removeEventListener("timeupdate", onTimeUpdate);
       };
     }
-  }, [songState.isPlaying, songState.song]);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.src = songState.song.src;
-      audioRef.current.play().catch((error) => {
-        console.log("Music failed to play");
-      });
-    }
-  }, [songState.song.src]);
+  }, [isPlaying, songState, audio]);
 
   const playingButton = () => {
     dispatch({ type: "PLAY_PAUSE" });
-    console.log(songState.song.src);
   };
 
   return (
     <div className="flex flex-row px-10 items-center gap-6">
-      <h3 className="font-extrabold">{songState.song.title}</h3>
-      <audio ref={audioRef} />
+      <h3 className="font-extrabold">{songState.title}</h3>
+      <audio ref={audioRef} src={songState.src} />
       <div className="w-full bg-slate-900 h-2">
         <div
           className="h-full bg-slate-700"
@@ -77,7 +88,7 @@ const Controls = () => {
       <div className="flex float-left justify-between items-center">
         <div id="buttons" className="flex gap-4 py-3">
           <SkipPrevIcon className="fill-white hover:fill-gray-500" />
-          {songState.isPlaying ? (
+          {isPlaying ? (
             <CircleStopIcon
               onClick={playingButton}
               className="fill-white hover:fill-gray-500"
