@@ -21,7 +21,7 @@ const Header = () => {
         className="flex px-6 py-3"
         onClick={() => handleNavLinkClick("Home")}
       >
-        <LogoIcon className="fill-blue-300 rotate-180 scale-95" />
+        <LogoIcon className="scale-95" />
         <h1 className="font-karla text-5xl text-gray-300">UPSTREAM</h1>
       </Link>
     </div>
