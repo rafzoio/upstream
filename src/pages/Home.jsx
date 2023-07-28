@@ -11,7 +11,11 @@ const Home = () => {
     });
   }, [dispatch]);
 
-  return <div></div>;
+  return (
+    <div>
+      <h1 className="text-gray-400 text-5xl">Welcome to upstream</h1>
+    </div>
+  );
 };
 
 export default Home;

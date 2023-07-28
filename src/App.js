@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import Library from "./pages/Library";
+import Upload from "./pages/Upload";
 import store from "./redux/store";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/library" element={<Library />} />
+                <Route path="/upload" element={<Upload />} />
               </Routes>
             </div>
           </div>

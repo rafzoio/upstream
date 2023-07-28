@@ -20,6 +20,12 @@ const Sidebar = () => {
         >
           <h2>Library</h2>
         </Link>
+        <Link
+          to="/upload"
+          className={activeLink === "Upload" ? " text-white" : "text-gray-400"}
+        >
+          <h2>Upload</h2>
+        </Link>
       </div>
     </div>
   );
