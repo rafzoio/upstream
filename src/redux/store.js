@@ -1,11 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-const initialSongState = {
-  id: 1,
-  title: "Dreamy",
-  path: "dreamy",
-  url: "",
-};
+const initialSongState = {};
 
 const songReducer = (state = initialSongState, action) => {
   switch (action.type) {

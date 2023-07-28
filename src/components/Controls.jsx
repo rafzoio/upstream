@@ -9,6 +9,7 @@ import { ReactComponent as SkipPrevIcon } from "../resources/icons/skip_prev.svg
 const Controls = () => {
   const dispatch = useDispatch();
   const songState = useSelector((state) => state.song);
+  const isSongStatePopulated = Object.keys(songState).length !== 0;
   const isPlayingState = useSelector((state) => state.isPlaying);
   const playlistState = useSelector((state) => state.playlist);
   const audioRef = useRef();
@@ -94,7 +95,9 @@ const Controls = () => {
 
   return (
     <div className="flex flex-row px-10 items-center gap-6">
-      <h3 className="font-extrabold">{songState.title}</h3>
+      <h3 className="font-extrabold">
+        {isSongStatePopulated ? songState.title : "Upstream"}
+      </h3>
       <audio ref={audioRef} src={songState.src} />
       <div className="w-full bg-slate-900 h-2">
         <div
@@ -115,22 +118,22 @@ const Controls = () => {
       <div className="flex float-left justify-between items-center">
         <div id="buttons" className="flex gap-4 py-3">
           <SkipPrevIcon
-            onClick={prevButton}
+            onClick={isSongStatePopulated ? prevButton : undefined}
             className="fill-white hover:fill-gray-500"
           />
           {isPlayingState ? (
             <CircleStopIcon
-              onClick={playingButton}
+              onClick={isSongStatePopulated ? playingButton : undefined}
               className="fill-white hover:fill-gray-500"
             />
           ) : (
             <CirclePlayIcon
-              onClick={playingButton}
+              onClick={isSongStatePopulated ? playingButton : undefined}
               className="fill-white hover:fill-gray-500"
             />
           )}
           <SkipNextIcon
-            onClick={nextButton}
+            onClick={isSongStatePopulated ? nextButton : undefined}
             className="fill-white hover:fill-gray-500"
           />
         </div>
