@@ -9,6 +9,7 @@ import { ReactComponent as SkipPrevIcon } from "../resources/icons/skip_prev.svg
 const Controls = () => {
   const dispatch = useDispatch();
   const songState = useSelector((state) => state.song);
+  const bitrate = useSelector((state) => state.bitrate);
   const isSongStatePopulated = Object.keys(songState).length !== 0;
   const isPlayingState = useSelector((state) => state.isPlaying);
   const playlistState = useSelector((state) => state.playlist);
@@ -33,9 +34,9 @@ const Controls = () => {
 
   useEffect(() => {
     if (audio) {
-      audio.src = songState.url;
+      audio.src = bitrate ?  songState.url : songState.url_compressed
     }
-  }, [songState, audio]);
+  }, [songState, audio, bitrate]);
 
   useEffect(() => {
     if (audio) {
