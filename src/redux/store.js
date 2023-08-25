@@ -68,12 +68,24 @@ const activeLinkReducer = (state = initialActiveLinkState, action) => {
   }
 };
 
+const bitrateState = "High";
+
+const bitrateReducer = (state = bitrateState, action) => {
+  switch (action.type) {
+    case "UPDATE_BITRATE":
+      return !state;
+    default:
+      return state;
+  }
+};
+
 const store = configureStore({
   reducer: {
     song: songReducer,
     isPlaying: isPlayingReducer,
     activeLink: activeLinkReducer,
     playlist: playlistReducer,
+    bitrate: bitrateReducer,
   },
 });
 
