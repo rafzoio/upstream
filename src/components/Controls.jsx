@@ -34,7 +34,7 @@ const Controls = () => {
 
   useEffect(() => {
     if (audio) {
-      audio.src = bitrate ?  songState.url : songState.url_compressed
+      audio.src = bitrate ? songState.url : songState.url_compressed;
     }
   }, [songState, audio, bitrate]);
 
@@ -96,9 +96,15 @@ const Controls = () => {
 
   return (
     <div className="flex flex-row px-10 items-center gap-6">
-      <h3 className="font-extrabold">
-        {isSongStatePopulated ? songState.title : "Upstream"}
-      </h3>
+      <div className="flex flex-col w-32">
+        <h3 className="font-extrabold">
+          {isSongStatePopulated ? songState.title : "Song"}
+        </h3>
+        <h3 className="text-sm">
+          {isSongStatePopulated ? songState.artist : "Artist"}
+        </h3>
+      </div>
+
       <audio ref={audioRef} src={songState.src} />
       <div className="w-full bg-slate-900 h-2">
         <div
