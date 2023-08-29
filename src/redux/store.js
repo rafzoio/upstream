@@ -68,12 +68,16 @@ const activeLinkReducer = (state = initialActiveLinkState, action) => {
   }
 };
 
-const bitrateState = "High";
+const initialHighQuality = true;
 
-const bitrateReducer = (state = bitrateState, action) => {
+const highQualityReducer = (state = initialHighQuality, action) => {
   switch (action.type) {
-    case "UPDATE_BITRATE":
+    case "TOGGLE_HIGH_QUALITY":
       return !state;
+    case "SET_HIGH_QUALITY":
+      return true;
+    case "SET_LOW_QUALITY":
+      return false;
     default:
       return state;
   }
@@ -85,7 +89,7 @@ const store = configureStore({
     isPlaying: isPlayingReducer,
     activeLink: activeLinkReducer,
     playlist: playlistReducer,
-    bitrate: bitrateReducer,
+    highQuality: highQualityReducer,
   },
 });
 

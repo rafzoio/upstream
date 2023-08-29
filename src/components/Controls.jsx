@@ -9,7 +9,7 @@ import { ReactComponent as SkipPrevIcon } from "../resources/icons/skip_prev.svg
 const Controls = () => {
   const dispatch = useDispatch();
   const songState = useSelector((state) => state.song);
-  const bitrate = useSelector((state) => state.bitrate);
+  const highQuality = useSelector((state) => state.highQuality);
   const isSongStatePopulated = Object.keys(songState).length !== 0;
   const isPlayingState = useSelector((state) => state.isPlaying);
   const playlistState = useSelector((state) => state.playlist);
@@ -34,9 +34,32 @@ const Controls = () => {
 
   useEffect(() => {
     if (audio) {
-      audio.src = bitrate ? songState.url : songState.url_compressed;
+      audio.src = highQuality ? songState.url : songState.url_compressed;
     }
-  }, [songState, audio, bitrate]);
+  }, [songState, audio, highQuality]);
+
+  useEffect(() => {
+    const updateBitrate = () => {
+      const connection =
+        navigator.connection ||
+        navigator.mozConnection ||
+        navigator.webkitConnection;
+      const type = connection.effectiveType;
+      if (!type.includes("4g") && highQuality === true) {
+        console.log("set low");
+        dispatch({
+          type: "SET_LOW_QUALITY",
+        });
+      }
+    };
+    window.addEventListener("online", updateBitrate);
+    window.addEventListener("offline", updateBitrate);
+    updateBitrate();
+    return () => {
+      window.removeEventListener("online", updateBitrate);
+      window.removeEventListener("offline", updateBitrate);
+    };
+  }, [dispatch, highQuality]);
 
   useEffect(() => {
     if (audio) {
