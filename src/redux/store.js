@@ -68,6 +68,17 @@ const activeLinkReducer = (state = initialActiveLinkState, action) => {
   }
 };
 
+const initialAdaptiveBitrate = true;
+
+const adaptiveBitrateReducer = (state = initialAdaptiveBitrate, action) => {
+  switch (action.type) {
+    case "TOGGLE_ADAPTIVE_BITRATE":
+      return !state;
+    default:
+      return state;
+  }
+};
+
 const initialHighQuality = true;
 
 const highQualityReducer = (state = initialHighQuality, action) => {
@@ -89,6 +100,7 @@ const store = configureStore({
     isPlaying: isPlayingReducer,
     activeLink: activeLinkReducer,
     playlist: playlistReducer,
+    adaptiveBitrate: adaptiveBitrateReducer,
     highQuality: highQualityReducer,
   },
 });

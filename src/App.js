@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import Library from "./pages/Library";
-import Upload from "./pages/Upload";
+import Settings from "./pages/Settings";
 import store from "./redux/store";
 
 function App() {
@@ -24,11 +24,11 @@ function App() {
               <Sidebar />
             </div>
 
-            <div className="p-6 overflow-auto">
+            <div className="p-6 overflow-auto w-full">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/library" element={<Library />} />
-                <Route path="/upload" element={<Upload />} />
+                <Route path="/settings" element={<Settings />} />
               </Routes>
             </div>
           </div>

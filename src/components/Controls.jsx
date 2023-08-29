@@ -10,6 +10,7 @@ const Controls = () => {
   const dispatch = useDispatch();
   const songState = useSelector((state) => state.song);
   const highQuality = useSelector((state) => state.highQuality);
+  const adaptiveBitrate = useSelector((state) => state.adaptiveBitrate);
   const isSongStatePopulated = Object.keys(songState).length !== 0;
   const isPlayingState = useSelector((state) => state.isPlaying);
   const playlistState = useSelector((state) => state.playlist);
@@ -45,7 +46,7 @@ const Controls = () => {
         navigator.mozConnection ||
         navigator.webkitConnection;
       const type = connection.effectiveType;
-      if (!type.includes("4g") && highQuality === true) {
+      if (!type.includes("4g") && highQuality && adaptiveBitrate) {
         console.log("set low");
         dispatch({
           type: "SET_LOW_QUALITY",
