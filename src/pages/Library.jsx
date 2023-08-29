@@ -36,7 +36,11 @@ const Library = () => {
     });
   }, [dispatch, songs]);
 
-  return <div>{isLoading ? <Spinner /> : <List data={songs} />}</div>;
+  return (
+    <div className="flex flex-col gap-3">
+      {isLoading ? <Spinner /> : <List data={songs} />}
+    </div>
+  );
 };
 
 export default Library;

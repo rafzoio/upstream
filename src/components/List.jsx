@@ -21,7 +21,7 @@ const List = ({ data }) => {
       {
         Header: "",
         accessor: "play",
-        width: "10%",
+        width: "5%",
         Cell: ({ row }) => (
           <div className="flex flex-row items-center">
             <button onClick={() => handleSongSelect(row.original)}>
@@ -33,12 +33,12 @@ const List = ({ data }) => {
       {
         Header: "Title",
         accessor: "title",
-        width: "45%",
+        width: "20%",
       },
       {
         Header: "Artist",
         accessor: "artist",
-        width: "45%",
+        width: "70%",
       },
     ],
     []
