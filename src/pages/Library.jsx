@@ -11,9 +11,7 @@ const Library = () => {
 
   const fetchAllSongs = async () => {
     try {
-      const response = await axios.get(
-        "https://cjaaog8vtk.execute-api.eu-west-2.amazonaws.com/default/GetAllSongs"
-      );
+      const response = await axios.get(`${process.env.FETCH_SONGS_API}`);
       setSongs(response.data);
       setIsLoading(false);
     } catch (error) {
