@@ -21,7 +21,7 @@ const Controls = () => {
 
   const updateSongSources = async () => {
     try {
-      await axios.get(`${process.env.UPDATE_SOURCES_API}`);
+      await axios.get(`${process.env.REACT_APP_UPDATE_SOURCES_API}`);
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +58,7 @@ const Controls = () => {
       window.removeEventListener("online", updateBitrate);
       window.removeEventListener("offline", updateBitrate);
     };
-  }, [dispatch, highQuality]);
+  }, [dispatch, highQuality, adaptiveBitrate]);
 
   useEffect(() => {
     if (audio) {

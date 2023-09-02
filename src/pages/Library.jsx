@@ -11,7 +11,9 @@ const Library = () => {
 
   const fetchAllSongs = async () => {
     try {
-      const response = await axios.get(`${process.env.FETCH_SONGS_API}`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_FETCH_SONGS_API}`
+      );
       setSongs(response.data);
       setIsLoading(false);
     } catch (error) {
