@@ -1,14 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
 import { Link } from "react-router-dom";
-import Switch from "react-switch";
 
 import { useDispatch } from "react-redux";
 import { ReactComponent as LogoIcon } from "../resources/icons/waves.svg";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const highQuality = useSelector((state) => state.highQuality);
 
   const handleNavLinkClick = (linkText) => {
     dispatch({
